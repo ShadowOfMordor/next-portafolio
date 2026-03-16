@@ -155,11 +155,11 @@ export default function Home() {
         >
           <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
             <span className="w-fit rounded-full border border-amber-300/60 bg-amber-100/80 px-3 py-1 text-[10px] font-semibold tracking-[0.25em] text-amber-900/80 uppercase dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-200 sm:px-4 sm:text-xs sm:tracking-[0.3em]">
-              Laravel · Vue · MySQL
+              Laravel · Vue · Next.js
             </span>
             <div className="flex flex-col gap-3 sm:gap-4">
               <h1 className="font-space-grotesk text-3xl leading-tight font-semibold text-slate-900 dark:text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                Ingeniero en Informatica, backend con Laravel y frontend con Vue.
+                Ingeniero en Informatica, backend con Laravel y frontend con Vue y Next.js.
               </h1>
               <p className="font-space-grotesk text-base text-slate-600 dark:text-slate-300 sm:text-lg md:text-xl">
                 Ayudo a negocios a construir APIs, paneles y flujos de datos claros,
@@ -188,7 +188,7 @@ export default function Home() {
                 Vue
               </span>
               <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.18em]">
-                Tailwind
+                Next.js
               </span>
               <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.18em]">
                 MySQL
@@ -434,7 +434,7 @@ export default function Home() {
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300 sm:text-base">
               Soy ingeniero en informatica con foco en backend y estructuras limpias.
-              Trabajo con Laravel, Vue, Tailwind y MySQL para entregar soluciones
+              Trabajo con Laravel, Vue, Next.js, TypeScript y MySQL para entregar soluciones
               estables, faciles de mantener y listas para crecer.
             </p>
             <p className="text-sm text-slate-600 dark:text-slate-300 sm:text-base">
