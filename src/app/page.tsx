@@ -313,7 +313,10 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-4 sm:gap-5 md:gap-6 lg:grid-cols-2">
-            <div className="flex h-full flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-4 shadow-sm transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-3xl sm:p-5 md:p-6">
+            <a
+              href="/proyecto-detalle"
+              className="flex h-full flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-4 text-left shadow-sm transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-3xl sm:p-5 md:p-6"
+            >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                 <div className="flex flex-col gap-1.5 sm:gap-2">
                   <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white sm:text-xl">
@@ -347,7 +350,7 @@ export default function Home() {
                   MySQL
                 </span>
               </div>
-            </div>
+            </a>
             <div className="flex h-full flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-4 shadow-sm transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-3xl sm:p-5 md:p-6">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                 <div className="flex flex-col gap-1.5 sm:gap-2">
