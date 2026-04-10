@@ -2,6 +2,8 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export default function ContactoPage() {
   const [formMessage, setFormMessage] = useState<{
@@ -91,44 +93,7 @@ export default function ContactoPage() {
       />
 
       <div className="relative mx-auto flex w-full max-w-4xl flex-col gap-12 px-6 py-10 lg:px-10 lg:py-16">
-        <header className="sticky top-0 z-40 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-black/5 bg-white/50 px-4 py-3 text-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5 sm:gap-4 sm:px-6 sm:py-4">
-          <a href="/" className="flex items-center gap-2 sm:gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-xs font-semibold tracking-[0.2em] uppercase shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/10 sm:h-11 sm:w-11 sm:text-sm">
-              NM
-            </div>
-            <div className="flex flex-col">
-              <span className="font-space-grotesk text-sm font-semibold sm:text-base">
-                Nicolas Muñoz Araya
-              </span>
-              <span className="hidden text-xs text-slate-600 dark:text-slate-400 sm:block">
-                Backend + Vue · Freelance
-              </span>
-            </div>
-          </a>
-          <nav
-            className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4"
-            aria-label="Navegación principal"
-          >
-            <a
-              href="/"
-              className="rounded-full border border-transparent px-2.5 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-600 uppercase transition active:scale-95 hover:border-black/10 hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:border-white/10 dark:hover:bg-white/10 dark:hover:text-white sm:px-3 sm:text-xs"
-            >
-              Inicio
-            </a>
-            <a
-              href="/#projects"
-              className="rounded-full border border-transparent px-2.5 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-600 uppercase transition active:scale-95 hover:border-black/10 hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:border-white/10 dark:hover:bg-white/10 dark:hover:text-white sm:px-3 sm:text-xs"
-            >
-              Proyectos
-            </a>
-            <a
-              href="/contacto"
-              className="rounded-full border border-transparent px-2.5 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-600 uppercase transition active:scale-95 hover:border-black/10 hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:border-white/10 dark:hover:bg-white/10 dark:hover:text-white sm:px-3 sm:text-xs"
-            >
-              Contacto
-            </a>
-          </nav>
-        </header>
+        <SiteHeader variant="innerLight" />
 
         <main className="flex flex-col gap-12">
           <div className="flex flex-col gap-4">
@@ -307,10 +272,7 @@ export default function ContactoPage() {
           </div>
         </main>
 
-        <footer className="flex flex-col gap-2 border-t border-black/5 pt-6 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
-          <span>Disponible para proyectos freelance y personales.</span>
-          <span>Construido con Laravel, Vue y Tailwind.</span>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   );

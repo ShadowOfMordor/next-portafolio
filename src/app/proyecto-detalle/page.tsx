@@ -1,5 +1,9 @@
 "use client";
 
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { TechBadge } from "@/components/ui/TechBadge";
+
 export default function ProyectoDetallePage() {
   return (
     <div className="dark relative min-h-screen bg-[radial-gradient(900px_600px_at_10%_-10%,_#1E2A3B_0%,_transparent_60%),radial-gradient(900px_600px_at_90%_0%,_#3B1E1E_0%,_transparent_55%),linear-gradient(180deg,_#0A0C10_0%,_#0E1117_45%,_#0B0F14_100%)] text-slate-100">
@@ -13,47 +17,7 @@ export default function ProyectoDetallePage() {
       />
 
       <div className="relative mx-auto flex w-full max-w-5xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-10 lg:py-16">
-        <header className="sticky top-0 z-40 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm backdrop-blur-md sm:gap-4 sm:px-6 sm:py-4">
-          <a href="/" className="flex items-center gap-2 sm:gap-3" rel="noopener">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-xs font-semibold tracking-[0.2em] text-white uppercase shadow-sm backdrop-blur sm:h-11 sm:w-11 sm:text-sm">
-              NM
-            </div>
-            <div className="flex min-w-0 flex-col">
-              <span className="font-space-grotesk text-sm font-semibold text-white sm:text-base">
-                Nicolas Muñoz Araya
-              </span>
-              <span className="hidden text-xs text-slate-400 sm:block">
-                Ingeniero en Informática, backend con Laravel y frontend con Vue
-              </span>
-            </div>
-          </a>
-          <nav
-            className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4"
-            aria-label="Navegación principal"
-          >
-            <a
-              href="/"
-              rel="noopener"
-              className="rounded-full border border-transparent px-2.5 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-300 uppercase transition active:scale-95 hover:border-white/10 hover:bg-white/10 hover:text-white sm:px-3 sm:text-xs"
-            >
-              Inicio
-            </a>
-            <a
-              href="/#projects"
-              rel="noopener"
-              className="rounded-full border border-transparent px-2.5 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-300 uppercase transition active:scale-95 hover:border-white/10 hover:bg-white/10 hover:text-white sm:px-3 sm:text-xs"
-            >
-              Proyectos
-            </a>
-            <a
-              href="/contacto"
-              rel="noopener"
-              className="rounded-full border border-transparent px-2.5 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-300 uppercase transition active:scale-95 hover:border-white/10 hover:bg-white/10 hover:text-white sm:px-3 sm:text-xs"
-            >
-              Contacto
-            </a>
-          </nav>
-        </header>
+        <SiteHeader variant="innerDark" />
 
         <main className="flex flex-col gap-12">
           <nav
@@ -89,10 +53,10 @@ export default function ProyectoDetallePage() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              <span className="badge text-slate-300">Laravel</span>
-              <span className="badge text-slate-300">Vue</span>
-              <span className="badge text-slate-300">Tailwind</span>
-              <span className="badge text-slate-300">MySQL</span>
+              <TechBadge>Laravel</TechBadge>
+              <TechBadge>Vue</TechBadge>
+              <TechBadge>Tailwind</TechBadge>
+              <TechBadge>MySQL</TechBadge>
             </div>
           </div>
 
@@ -549,10 +513,7 @@ export default function ProyectoDetallePage() {
           </aside>
         </main>
 
-        <footer className="flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400">
-          <span>Disponible para proyectos freelance y personales.</span>
-          <span>Construido con Laravel, Vue y Tailwind.</span>
-        </footer>
+        <SiteFooter variant="dark" />
       </div>
     </div>
   );
