@@ -437,6 +437,7 @@ export default function Home() {
           <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
             <a
               href="/contacto"
+              aria-label="Ir al formulario de contacto"
               className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
             >
               <div className="flex flex-col gap-0.5 sm:gap-1">
@@ -455,6 +456,7 @@ export default function Home() {
               href="mailto:nicolasmo6888@gmail.com"
               target="_blank"
               rel="noreferrer"
+              aria-label="Abrir correo a nicolasmo6888@gmail.com"
               className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
             >
               <div className="flex flex-col gap-0.5 sm:gap-1">
@@ -473,6 +475,7 @@ export default function Home() {
               href="https://wa.me/56921789145"
               target="_blank"
               rel="noreferrer"
+              aria-label="Abrir WhatsApp +56 9 2178 9145"
               className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
             >
               <div className="flex flex-col gap-0.5 sm:gap-1">
@@ -491,6 +494,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/nicol%C3%A1s-mu%C3%B1oz-araya-b2b6781aa/"
               target="_blank"
               rel="noreferrer"
+              aria-label="Abrir perfil de LinkedIn"
               className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
             >
               <div className="flex flex-col gap-0.5 sm:gap-1">
@@ -509,6 +513,7 @@ export default function Home() {
               href="https://github.com/ShadowOfMordor/my-dev"
               target="_blank"
               rel="noreferrer"
+              aria-label="Abrir repositorio en GitHub"
               className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
             >
               <div className="flex flex-col gap-0.5 sm:gap-1">

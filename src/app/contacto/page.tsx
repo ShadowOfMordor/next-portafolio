@@ -1,60 +1,145 @@
 "use client";
 
-import type { FormEvent } from "react";
+import type { ChangeEvent, FocusEvent, FormEvent } from "react";
 import { useState } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
+type FormValues = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type FormErrors = Partial<Record<keyof FormValues, string>>;
+type FieldName = keyof FormValues;
+
+const INITIAL_VALUES: FormValues = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function sanitizeInput(input: string, maxLength: number) {
+  return input.replace(/[<>]/g, "").slice(0, maxLength);
+}
+
+function validateField(field: FieldName, value: string): string {
+  const trimmed = value.trim();
+
+  if (field === "name") {
+    if (trimmed.length < 2 || trimmed.length > 100) {
+      return "El nombre debe tener entre 2 y 100 caracteres.";
+    }
+    return "";
+  }
+
+  if (field === "email") {
+    if (!EMAIL_REGEX.test(trimmed)) {
+      return "Por favor ingresa un email válido.";
+    }
+    return "";
+  }
+
+  if (field === "subject") {
+    if (trimmed.length < 3 || trimmed.length > 200) {
+      return "El asunto debe tener entre 3 y 200 caracteres.";
+    }
+    return "";
+  }
+
+  if (field === "message") {
+    if (trimmed.length < 10 || trimmed.length > 2000) {
+      return "El mensaje debe tener entre 10 y 2000 caracteres.";
+    }
+    return "";
+  }
+
+  return "";
+}
+
 export default function ContactoPage() {
+  const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
+  const [fieldErrors, setFieldErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<FieldName, boolean>>({
+    name: false,
+    email: false,
+    subject: false,
+    message: false,
+  });
   const [formMessage, setFormMessage] = useState<{
     text: string;
     type: "idle" | "error" | "info";
   }>({ text: "", type: "idle" });
 
+  const runValidation = (inputValues: FormValues): FormErrors => {
+    return {
+      name: validateField("name", inputValues.name),
+      email: validateField("email", inputValues.email),
+      subject: validateField("subject", inputValues.subject),
+      message: validateField("message", inputValues.message),
+    };
+  };
+
+  const hasAnyErrors = (errors: FormErrors) =>
+    Object.values(errors).some(Boolean);
+
+  const inputClass = (field: FieldName) =>
+    `rounded-xl border bg-white/80 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:focus:border-white/30 dark:focus:ring-white/20 ${
+      touched[field] && fieldErrors[field]
+        ? "border-red-500 dark:border-red-400"
+        : "border-black/10"
+    }`;
+
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const field = event.target.name as FieldName;
+    const maxLength = field === "message" ? 2000 : 1000;
+    const sanitizedValue = sanitizeInput(event.target.value, maxLength);
+
+    setValues((prev) => {
+      const next = { ...prev, [field]: sanitizedValue };
+      if (touched[field]) {
+        setFieldErrors((prevErrors) => ({
+          ...prevErrors,
+          [field]: validateField(field, sanitizedValue),
+        }));
+      }
+      return next;
+    });
+  };
+
+  const handleBlur = (
+    event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const field = event.target.name as FieldName;
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    setFieldErrors((prev) => ({
+      ...prev,
+      [field]: validateField(field, values[field]),
+    }));
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    const sanitize = (value: FormDataEntryValue | null) =>
-      String(value ?? "")
-        .trim()
-        .replace(/[<>]/g, "")
-        .slice(0, 1000);
+    const errors = runValidation(values);
+    setFieldErrors(errors);
+    setTouched({
+      name: true,
+      email: true,
+      subject: true,
+      message: true,
+    });
 
-    const name = sanitize(formData.get("name"));
-    const email = sanitize(formData.get("email"));
-    const subject = sanitize(formData.get("subject"));
-    const message = sanitize(formData.get("message"));
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (name.length < 2 || name.length > 100) {
+    if (hasAnyErrors(errors)) {
       setFormMessage({
-        text: "El nombre debe tener entre 2 y 100 caracteres.",
-        type: "error",
-      });
-      return;
-    }
-
-    if (!emailRegex.test(email)) {
-      setFormMessage({
-        text: "Por favor ingresa un email válido.",
-        type: "error",
-      });
-      return;
-    }
-
-    if (subject.length < 3 || subject.length > 200) {
-      setFormMessage({
-        text: "El asunto debe tener entre 3 y 200 caracteres.",
-        type: "error",
-      });
-      return;
-    }
-
-    if (message.length < 10 || message.length > 2000) {
-      setFormMessage({
-        text: "El mensaje debe tener entre 10 y 2000 caracteres.",
+        text: "Revisa los campos marcados antes de enviar.",
         type: "error",
       });
       return;
@@ -65,10 +150,10 @@ export default function ContactoPage() {
       type: "info",
     });
 
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedMessage = encodeURIComponent(message);
-    const encodedName = encodeURIComponent(name);
-    const encodedEmail = encodeURIComponent(email);
+    const encodedSubject = encodeURIComponent(values.subject.trim());
+    const encodedMessage = encodeURIComponent(values.message.trim());
+    const encodedName = encodeURIComponent(values.name.trim());
+    const encodedEmail = encodeURIComponent(values.email.trim());
 
     const mailtoLink = `mailto:nicolasmo6888@gmail.com?subject=${encodedSubject}&body=De: ${encodedName} (${encodedEmail})%0D%0A%0D%0A${encodedMessage}`;
 
@@ -124,9 +209,19 @@ export default function ContactoPage() {
                     id="name"
                     name="name"
                     required
-                    className="rounded-xl border border-black/10 bg-white/80 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:focus:border-white/30 dark:focus:ring-white/20"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={Boolean(touched.name && fieldErrors.name)}
+                    aria-describedby={fieldErrors.name ? "name-error" : undefined}
+                    className={inputClass("name")}
                     placeholder="Tu nombre"
                   />
+                  {touched.name && fieldErrors.name ? (
+                    <p id="name-error" className="text-xs text-red-600 dark:text-red-400">
+                      {fieldErrors.name}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="flex flex-col gap-2">
                   <label
@@ -140,9 +235,22 @@ export default function ContactoPage() {
                     id="email"
                     name="email"
                     required
-                    className="rounded-xl border border-black/10 bg-white/80 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:focus:border-white/30 dark:focus:ring-white/20"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={Boolean(touched.email && fieldErrors.email)}
+                    aria-describedby={fieldErrors.email ? "email-error" : undefined}
+                    className={inputClass("email")}
                     placeholder="tu@email.com"
                   />
+                  {touched.email && fieldErrors.email ? (
+                    <p
+                      id="email-error"
+                      className="text-xs text-red-600 dark:text-red-400"
+                    >
+                      {fieldErrors.email}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="flex flex-col gap-2">
                   <label
@@ -156,9 +264,22 @@ export default function ContactoPage() {
                     id="subject"
                     name="subject"
                     required
-                    className="rounded-xl border border-black/10 bg-white/80 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:focus:border-white/30 dark:focus:ring-white/20"
+                    value={values.subject}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={Boolean(touched.subject && fieldErrors.subject)}
+                    aria-describedby={fieldErrors.subject ? "subject-error" : undefined}
+                    className={inputClass("subject")}
                     placeholder="¿En qué puedo ayudarte?"
                   />
+                  {touched.subject && fieldErrors.subject ? (
+                    <p
+                      id="subject-error"
+                      className="text-xs text-red-600 dark:text-red-400"
+                    >
+                      {fieldErrors.subject}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="flex flex-col gap-2">
                   <label
@@ -172,9 +293,22 @@ export default function ContactoPage() {
                     name="message"
                     rows={6}
                     required
-                    className="rounded-xl border border-black/10 bg-white/80 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:focus:border-white/30 dark:focus:ring-white/20"
+                    value={values.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={Boolean(touched.message && fieldErrors.message)}
+                    aria-describedby={fieldErrors.message ? "message-error" : undefined}
+                    className={inputClass("message")}
                     placeholder="Cuéntame sobre tu proyecto..."
                   />
+                  {touched.message && fieldErrors.message ? (
+                    <p
+                      id="message-error"
+                      className="text-xs text-red-600 dark:text-red-400"
+                    >
+                      {fieldErrors.message}
+                    </p>
+                  ) : null}
                 </div>
                 <button
                   type="submit"
@@ -184,6 +318,8 @@ export default function ContactoPage() {
                 </button>
                 {formMessage.text ? (
                   <p
+                    role={formMessage.type === "error" ? "alert" : "status"}
+                    aria-live="polite"
                     className={`text-sm ${
                       formMessage.type === "error"
                         ? "text-red-600 dark:text-red-400"
@@ -204,6 +340,7 @@ export default function ContactoPage() {
                 <div className="flex flex-col gap-4">
                   <a
                     href="mailto:nicolasmo6888@gmail.com"
+                    aria-label="Abrir correo a nicolasmo6888@gmail.com"
                     className="flex items-center gap-4 rounded-2xl border border-black/10 bg-white/80 p-4 transition hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/10">
@@ -235,6 +372,7 @@ export default function ContactoPage() {
                     href="https://wa.me/56921789145"
                     target="_blank"
                     rel="noreferrer"
+                    aria-label="Abrir conversación por WhatsApp"
                     className="flex items-center gap-4 rounded-2xl border border-black/10 bg-white/80 p-4 transition hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/10">
