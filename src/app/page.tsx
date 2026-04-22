@@ -3,6 +3,117 @@
 import { useEffect, useState } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ContactCtaCard } from "@/components/ui/ContactCtaCard";
+import { ProjectCard } from "@/components/ui/ProjectCard";
+import { ServiceCard } from "@/components/ui/ServiceCard";
+
+const projects = [
+  {
+    title: "Gestor de clientes y facturacion",
+    description:
+      "Sistema para organizar clientes, emitir facturas y controlar estados de pago.",
+    statusText: "Demo en construccion",
+    bullets: [
+      "CRUD completo con historial y estados",
+      "Exportacion PDF/CSV y plantillas",
+      "Roles basicos para equipo y administrador",
+    ],
+    tags: ["Laravel", "Vue", "Tailwind", "MySQL"],
+    href: "/proyecto-detalle",
+  },
+  {
+    title: "Panel de pedidos y logistica",
+    description:
+      "Panel para visualizar pedidos, asignar estados y medir tiempos por etapa.",
+    statusText: "Demo en construccion",
+    bullets: [
+      "Listados con filtros y busqueda rapida",
+      "Timeline por pedido con cambios auditables",
+      "Dashboard con metricas clave",
+    ],
+    tags: ["Laravel", "Vue", "Tailwind", "MySQL"],
+  },
+  {
+    title: "Mini SaaS para gestion de servicios",
+    description:
+      "Landing, registro, onboarding y panel basico para practicar UX y conversion.",
+    statusText: "En el radar",
+    bullets: [
+      "Flujo de registro claro",
+      "Panel simple con estado del servicio",
+      "Base lista para pagos a futuro",
+    ],
+    tags: ["Laravel", "Vue", "Tailwind"],
+    dashed: true,
+    statusTone: "amber" as const,
+  },
+];
+
+const contactCtas = [
+  {
+    href: "/contacto",
+    label: "Formulario",
+    value: "Enviar mensaje",
+    actionText: "Ir",
+    ariaLabel: "Ir al formulario de contacto",
+  },
+  {
+    href: "mailto:nicolasmo6888@gmail.com",
+    label: "Email",
+    value: "nicolasmo6888@gmail.com",
+    actionText: "Abrir",
+    ariaLabel: "Abrir correo a nicolasmo6888@gmail.com",
+    external: true,
+  },
+  {
+    href: "https://wa.me/56921789145",
+    label: "WhatsApp",
+    value: "+56 9 2178 9145",
+    actionText: "Abrir",
+    ariaLabel: "Abrir WhatsApp +56 9 2178 9145",
+    external: true,
+  },
+  {
+    href: "https://www.linkedin.com/in/nicol%C3%A1s-mu%C3%B1oz-araya-b2b6781aa/",
+    label: "LinkedIn",
+    value: "Perfil profesional",
+    actionText: "Abrir",
+    ariaLabel: "Abrir perfil de LinkedIn",
+    external: true,
+  },
+  {
+    href: "https://github.com/ShadowOfMordor/my-dev",
+    label: "GitHub",
+    value: "Repositorio actual",
+    actionText: "Abrir",
+    ariaLabel: "Abrir repositorio en GitHub",
+    external: true,
+  },
+];
+
+const services = [
+  {
+    title: "APIs y backends en Laravel",
+    description:
+      "Estructuras limpias, autenticacion, roles y buenas practicas para escalar sin dolor.",
+    compact: true,
+  },
+  {
+    title: "Paneles y dashboards",
+    description:
+      "Interfaces claras para administrar datos, con filtros, estados y visuales utiles.",
+  },
+  {
+    title: "Integraciones y automatizacion",
+    description:
+      "Conexiones con servicios externos, jobs en cola y procesos que ahorran tiempo.",
+  },
+  {
+    title: "Mantenimiento y mejoras",
+    description:
+      "Refactors, optimizacion y continuidad tecnica para sistemas que ya estan en produccion.",
+  },
+];
 
 export default function Home() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -200,42 +311,14 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
-            <div className="flex flex-col gap-2.5 rounded-xl border border-black/10 bg-white/70 p-4 shadow-sm transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-3 sm:rounded-2xl sm:p-5 md:p-6">
-              <h3 className="font-space-grotesk text-base font-semibold text-slate-900 dark:text-white sm:text-lg">
-                APIs y backends en Laravel
-              </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 sm:text-sm">
-                Estructuras limpias, autenticacion, roles y buenas practicas para
-                escalar sin dolor.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
-              <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white">
-                Paneles y dashboards
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Interfaces claras para administrar datos, con filtros, estados y
-                visuales utiles.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
-              <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white">
-                Integraciones y automatizacion
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Conexiones con servicios externos, jobs en cola y procesos que ahorran
-                tiempo.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
-              <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white">
-                Mantenimiento y mejoras
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Refactors, optimizacion y continuidad tecnica para sistemas que ya
-                estan en produccion.
-              </p>
-            </div>
+            {services.map((service) => (
+              <ServiceCard
+                key={service.title}
+                title={service.title}
+                description={service.description}
+                compact={service.compact}
+              />
+            ))}
           </div>
         </section>
 
@@ -256,111 +339,19 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-4 sm:gap-5 md:gap-6 lg:grid-cols-2">
-            <a
-              href="/proyecto-detalle"
-              className="flex h-full flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-4 text-left shadow-sm transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-3xl sm:p-5 md:p-6"
-            >
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                <div className="flex flex-col gap-1.5 sm:gap-2">
-                  <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white sm:text-xl">
-                    Gestor de clientes y facturacion
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 sm:text-sm">
-                    Sistema para organizar clientes, emitir facturas y controlar
-                    estados de pago.
-                  </p>
-                </div>
-                <span className="w-fit rounded-full border border-slate-200/70 bg-slate-100 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/10 dark:text-slate-200 sm:px-3 sm:text-xs sm:tracking-[0.18em]">
-                  Demo en construccion
-                </span>
-              </div>
-              <ul className="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-slate-300 sm:gap-2 sm:text-sm">
-                <li>CRUD completo con historial y estados</li>
-                <li>Exportacion PDF/CSV y plantillas</li>
-                <li>Roles basicos para equipo y administrador</li>
-              </ul>
-              <div className="mt-auto flex flex-wrap gap-1.5 sm:gap-2">
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Laravel
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Vue
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Tailwind
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  MySQL
-                </span>
-              </div>
-            </a>
-            <div className="flex h-full flex-col gap-3 rounded-2xl border border-black/10 bg-white/70 p-4 shadow-sm transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-3xl sm:p-5 md:p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                <div className="flex flex-col gap-1.5 sm:gap-2">
-                  <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white sm:text-xl">
-                    Panel de pedidos y logistica
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 sm:text-sm">
-                    Panel para visualizar pedidos, asignar estados y medir tiempos por
-                    etapa.
-                  </p>
-                </div>
-                <span className="w-fit rounded-full border border-slate-200/70 bg-slate-100 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/10 dark:text-slate-200 sm:px-3 sm:text-xs sm:tracking-[0.18em]">
-                  Demo en construccion
-                </span>
-              </div>
-              <ul className="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-slate-300 sm:gap-2 sm:text-sm">
-                <li>Listados con filtros y busqueda rapida</li>
-                <li>Timeline por pedido con cambios auditables</li>
-                <li>Dashboard con metricas clave</li>
-              </ul>
-              <div className="mt-auto flex flex-wrap gap-1.5 sm:gap-2">
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Laravel
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Vue
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Tailwind
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  MySQL
-                </span>
-              </div>
-            </div>
-            <div className="flex h-full flex-col gap-3 rounded-2xl border border-dashed border-slate-300/70 bg-white/40 p-4 text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-200 sm:gap-4 sm:rounded-3xl sm:p-5 md:p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                <div className="flex flex-col gap-1.5 sm:gap-2">
-                  <h3 className="font-space-grotesk text-lg font-semibold text-slate-900 dark:text-white sm:text-xl">
-                    Mini SaaS para gestion de servicios
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 sm:text-sm">
-                    Landing, registro, onboarding y panel basico para practicar UX y
-                    conversion.
-                  </p>
-                </div>
-                <span className="w-fit rounded-full border border-amber-300/60 bg-amber-100/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-amber-800 uppercase dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-200 sm:px-3 sm:text-xs sm:tracking-[0.18em]">
-                  En el radar
-                </span>
-              </div>
-              <ul className="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-slate-300 sm:gap-2 sm:text-sm">
-                <li>Flujo de registro claro</li>
-                <li>Panel simple con estado del servicio</li>
-                <li>Base lista para pagos a futuro</li>
-              </ul>
-              <div className="mt-auto flex flex-wrap gap-1.5 sm:gap-2">
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Laravel
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Vue
-                </span>
-                <span className="rounded-full border border-black/10 bg-white/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-slate-500 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-[11px] sm:tracking-[0.16em]">
-                  Tailwind
-                </span>
-              </div>
-            </div>
+            {projects.map((project) => (
+              <ProjectCard
+                key={project.title}
+                title={project.title}
+                description={project.description}
+                statusText={project.statusText}
+                bullets={project.bullets}
+                tags={project.tags}
+                href={project.href}
+                dashed={project.dashed}
+                statusTone={project.statusTone}
+              />
+            ))}
           </div>
         </section>
 
@@ -435,99 +426,17 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
-            <a
-              href="/contacto"
-              aria-label="Ir al formulario de contacto"
-              className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
-            >
-              <div className="flex flex-col gap-0.5 sm:gap-1">
-                <span className="text-[10px] tracking-[0.25em] text-slate-500 uppercase sm:text-xs sm:tracking-[0.3em]">
-                  Formulario
-                </span>
-                <span className="font-space-grotesk text-sm font-semibold text-slate-900 dark:text-white sm:text-base">
-                  Enviar mensaje
-                </span>
-              </div>
-              <span className="rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.2em]">
-                Ir
-              </span>
-            </a>
-            <a
-              href="mailto:nicolasmo6888@gmail.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Abrir correo a nicolasmo6888@gmail.com"
-              className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
-            >
-              <div className="flex flex-col gap-0.5 sm:gap-1">
-                <span className="text-[10px] tracking-[0.25em] text-slate-500 uppercase sm:text-xs sm:tracking-[0.3em]">
-                  Email
-                </span>
-                <span className="font-space-grotesk text-sm font-semibold text-slate-900 dark:text-white sm:text-base">
-                  nicolasmo6888@gmail.com
-                </span>
-              </div>
-              <span className="rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.2em]">
-                Abrir
-              </span>
-            </a>
-            <a
-              href="https://wa.me/56921789145"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Abrir WhatsApp +56 9 2178 9145"
-              className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
-            >
-              <div className="flex flex-col gap-0.5 sm:gap-1">
-                <span className="text-[10px] tracking-[0.25em] text-slate-500 uppercase sm:text-xs sm:tracking-[0.3em]">
-                  WhatsApp
-                </span>
-                <span className="font-space-grotesk text-sm font-semibold text-slate-900 dark:text-white sm:text-base">
-                  +56 9 2178 9145
-                </span>
-              </div>
-              <span className="rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.2em]">
-                Abrir
-              </span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/nicol%C3%A1s-mu%C3%B1oz-araya-b2b6781aa/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Abrir perfil de LinkedIn"
-              className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
-            >
-              <div className="flex flex-col gap-0.5 sm:gap-1">
-                <span className="text-[10px] tracking-[0.25em] text-slate-500 uppercase sm:text-xs sm:tracking-[0.3em]">
-                  LinkedIn
-                </span>
-                <span className="font-space-grotesk text-sm font-semibold text-slate-900 dark:text-white sm:text-base">
-                  Perfil profesional
-                </span>
-              </div>
-              <span className="rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.2em]">
-                Abrir
-              </span>
-            </a>
-            <a
-              href="https://github.com/ShadowOfMordor/my-dev"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Abrir repositorio en GitHub"
-              className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 p-4 text-left transition active:scale-[0.98] hover:-translate-y-1 hover:border-black/20 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 sm:gap-4 sm:rounded-2xl sm:p-5"
-            >
-              <div className="flex flex-col gap-0.5 sm:gap-1">
-                <span className="text-[10px] tracking-[0.25em] text-slate-500 uppercase sm:text-xs sm:tracking-[0.3em]">
-                  GitHub
-                </span>
-                <span className="font-space-grotesk text-sm font-semibold text-slate-900 dark:text-white sm:text-base">
-                  Repositorio actual
-                </span>
-              </div>
-              <span className="rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-600 uppercase dark:border-white/10 dark:bg-white/5 dark:text-slate-300 sm:px-3 sm:text-xs sm:tracking-[0.2em]">
-                Abrir
-              </span>
-            </a>
+            {contactCtas.map((cta) => (
+              <ContactCtaCard
+                key={cta.href}
+                href={cta.href}
+                label={cta.label}
+                value={cta.value}
+                actionText={cta.actionText}
+                ariaLabel={cta.ariaLabel}
+                external={cta.external}
+              />
+            ))}
           </div>
         </section>
 
